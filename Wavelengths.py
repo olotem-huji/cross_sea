@@ -14,9 +14,19 @@ wavelength_by_freq = {
     27.5: 2.1,
     30: 2
 }
+yerr = 0.075
 
-plt.plot(wavelength_by_freq.keys(), [v/100 * SCREEN_TO_REAL_RAT for v in wavelength_by_freq.values()])
+plt.errorbar(wavelength_by_freq.keys(),
+            [v * SCREEN_TO_REAL_RAT for v in wavelength_by_freq.values()],
+            yerr=yerr,
+             fmt='o',
+             capsize=3,
+             # s=15
+             )
 x_fit = np.linspace(10, 30, 100)
-y_fit = 2*np.pi * 9.81 * 0.006 / (2*np.pi*x_fit) * 3
-plt.plot(x_fit, y_fit)
+
+y_fit = 2*np.pi * 9.81 * 0.006 / (x_fit)
+# plt.plot(x_fit, y_fit)
+plt.xlabel("Source Frequency [Hz]", fontsize=18)
+plt.ylabel("Wavelength [cm]", fontsize=18)
 plt.show()
